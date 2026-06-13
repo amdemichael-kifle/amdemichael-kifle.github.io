@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amdemichael Kifle — Authorized Accountant & Consultant</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  
+  <style>
+    /* --- CSS RESET & SYSTEM TOKENS --- */
+    *{margin:0;padding:0;box-sizing:border-box;}
+    
+    :root {
+      --navy: #0a1f44;
+      --navy-light: #0d2d5e;
+      --navy-box: #0a1f44;
+      --navy-dark: #030812;
+      --sky: #1e90ff;
+      --sky-dark: #0066cc;
+      --lime: #a8d832;
+      --gold: #c9a84c;
+      --gold-dark: #aa8934;
+      
+      --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --border-radius-lg: 16px;
+      --border-radius-md: 10px;
+    }
+
+    /* PREMIUM ACCENT GRADIENT FOR THE CONTENT BELOW THE HERO */
+    body {
+      font-family: var(--font-sans);
+      background-color: #EFF3FF;
+      background-image: linear-gradient(135deg, #C6DEBF 0%, #EFF3FF 100%);
+      color: var(--navy);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* FULL WIDTH FLUID LAYOUT */
+    .site {
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 0 3% 24px 3%;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* --- NAVIGATION BAR --- */
+    nav {
+      background: rgba(10, 31, 68, 0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 16px 32px;
+      margin-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: var(--border-radius-lg);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      z-index: 100;
+    }
+    .logo-text { color: #fff; font-size: 16px; font-weight: 600; line-height: 1.3; letter-spacing: 0.02em; }
+    .logo-text span { color: var(--gold); font-weight: 400; font-size: 13px; }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a { color: rgba(255,255,255,0.70); text-decoration: none; font-size: 14px; font-weight: 500; cursor: pointer; padding: 6px 0; border-bottom: 2px solid transparent; transition: all 0.3s ease; }
+    .nav-links a:hover, .nav-links a.active { color: var(--lime); border-bottom-color: var(--lime); }
+
+    /* --- CORE PAGES FRAMEWORK --- */
+    .page { display: none; background: transparent; width: 100%; }
+    .page.active { display: block; animation: fadeIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+
+    /* --- IMMERSIVE HERO BLOCK WITH BLENDED BLEED --- */
+    .hero-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 85vh;
+      align-items: stretch;
+      gap: 0;
+      position: relative;
+      background: #05122c;
+      margin: -24px -3% 40px -3%;
+      padding: 0;
+      border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      overflow: hidden;
+    }
+
+    /* GAP between photo block and text block */
+    .hero-media-side {
+      position: relative;
+      display: flex;
+      align-items: stretch;
+      justify-content: stretch;
+      padding: 0;
+      height: 100%;
+      min-height: 85vh;
+      background: transparent;
+      overflow: hidden;
+      margin-right: 28px; /* creates the gap */
+    }
+
+    /* NO fades at all */
+    .hero-media-side::after { display: none; }
+    .hero-media-side::before { display: none; }
+
+    /* OFFSET GOLD DIVIDER LINE — vertical, slightly off-center */
+    .hero-divider {
+      position: absolute;
+      top: 8%;
+      bottom: 8%;
+      left: calc(50% + 14px); /* offset: sits closer to text side */
+      width: 2px;
+      background: linear-gradient(to bottom,
+        transparent 0%,
+        var(--gold) 15%,
+        var(--gold) 85%,
+        transparent 100%
+      );
+      z-index: 20;
+      border-radius: 2px;
+    }
+
+    /* FULL-SCALE FRAME — fills the entire left panel */
+    .fader-frame { 
+      position: relative; 
+      width: 100%; 
+      height: 100%;
+      min-height: 85vh;
+      z-index: 2;
+    }
+
+    .slide-item { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 0; text-align: center; }
+    
+    .slide-owner { animation: crossfadeFirst 8s infinite ease-in-out; z-index: 2; }
+    .slide-logo { animation: crossfadeSecond 8s infinite ease-in-out; opacity: 0; z-index: 3;
+      background: #05122c;
+      width: 100%; height: 100%;
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    }
+
+    /* No fade transitions needed — block layout */
+
+    @keyframes crossfadeFirst {
+      0%, 42%  { opacity: 1; z-index: 2; }
+      50%, 95% { opacity: 0; z-index: 1; }
+      100%     { opacity: 1; z-index: 2; }
+    }
+
+    @keyframes crossfadeSecond {
+      0%, 50%  { opacity: 0; z-index: 1; transform: scale(0.97); }
+      58%, 93% { opacity: 1; z-index: 4; transform: scale(1);    }
+      100%     { opacity: 0; z-index: 1; transform: scale(0.97); }
+    }
+
+    .slide-item i { font-size: 72px; color: var(--gold); filter: drop-shadow(0 4px 12px rgba(201,168,76,0.4)); }
+    .slide-item span { font-size: 16px; color: #fff; font-weight: 600; line-height: 1.4; }
+    .slide-item .sub-label { font-size: 13px; color: rgba(255,255,255,0.6); margin-top: -6px; }
+
+    .hero-text-side { display: flex; flex-direction: column; justify-content: center; padding: 60px 48px 60px 32px; z-index: 10; }
+    .hero-badge { display: inline-block; background: rgba(168,216,50,0.15); color: var(--lime); font-size: 12px; font-weight: 600; padding: 6px 16px; border-radius: 30px; border: 1px solid rgba(168,216,50,0.3); margin-bottom: 24px; width: fit-content; letter-spacing: 0.05em; text-transform: uppercase; opacity: 0; animation: fadeSlideUp 0.6s ease 0.2s forwards; }
+    
+    /* MODIFIED: Font color changed from #ffffff to var(--gold) */
+    .hero-text-side h1 { font-size: clamp(34px, 4.5vw, 52px); font-weight: 700; line-height: 1.25; margin-bottom: 24px; min-height: 2.4em; color: var(--gold); }
+    
+    .hero-text-side p { color: rgba(255,255,255,0.85); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.8; margin-bottom: 36px; opacity: 0; animation: fadeSlideUp 0.6s ease 0.6s forwards; max-width: 650px; }
+    .hero-btns { display: flex; gap: 16px; opacity: 0; animation: fadeSlideUp 0.6s ease 0.8s forwards; flex-wrap: wrap; }
+    
+    .btn-gold { background: var(--gold); color: var(--navy-dark); border: none; padding: 14px 28px; border-radius: var(--border-radius-md); font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
+    .btn-gold:hover { background: #dcc273; transform: translateY(-3px); box-shadow: 0 8px 20px rgba(201,168,76,0.3); }
+    .btn-ghost { background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 14px 28px; border-radius: var(--border-radius-md); font-size: 15px; font-weight: 500; cursor: pointer; transition: all 0.3s ease; }
+    .btn-ghost:hover { background: rgba(255,255,255,0.1); border-color: #fff; transform: translateY(-3px); }
+
+    /* --- CONTENT SECTIONS BELOW HERO --- */
+    section { padding: 60px 0; }
+    section h2 { font-size: clamp(26px, 3.2vw, 36px); font-weight: 800; color: var(--navy); letter-spacing: -0.02em; }
+    .gold-rule { width: 60px; height: 4px; background: var(--gold-dark); border-radius: 4px; margin: 16px 0 24px; box-shadow: 0 2px 8px rgba(170,137,52,0.2); }
+    .section-sub { font-size: 16px; color: var(--navy); opacity: 0.85; margin-bottom: 40px; max-width: 600px; font-weight: 500; }
+
+    /* Counter Cards */
+    .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; margin: 20px 0 60px; }
+    .stat { background: rgba(255,255,255,0.5); border: 1px solid rgba(255, 255, 255, 0.4); padding: 32px 24px; text-align: center; border-radius: var(--border-radius-lg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); transition: all 0.3s ease; box-shadow: 0 8px 20px rgba(10,31,68,0.04); }
+    .stat:hover { transform: translateY(-5px); border-color: rgba(255, 255, 255, 0.8); background: rgba(255,255,255,0.7); box-shadow: 0 12px 24px rgba(10,31,68,0.08); }
+    .stat-num { font-size: 32px; font-weight: 800; color: var(--navy); font-variant-numeric: tabular-nums; }
+    .stat-label { font-size: 14px; color: var(--gold-dark); margin-top: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    /* NAVY BLUE SERVICE BOXES */
+    .svc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 24px; }
+    .svc-card { background: var(--navy-box) !important; border: 1px solid rgba(255, 255, 255, 0.12) !important; border-radius: var(--border-radius-lg) !important; padding: 32px !important; border-top: 4px solid var(--sky) !important; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important; box-shadow: 0 10px 25px rgba(10,31,68,0.15); }
+    .svc-card:hover { transform: translateY(-8px) !important; border-top-color: var(--gold) !important; background: #112c5c !important; box-shadow: 0 20px 40px rgba(0,0,0,0.25) !important; }
+    .svc-card i { font-size: 36px; color: var(--sky); margin-bottom: 20px; display: block; transition: color 0.3s ease; }
+    .svc-card:hover i { color: var(--gold); transform: scale(1.1); }
+    .svc-card h3 { font-size: 19px; font-weight: 600; margin-bottom: 12px; color: #ffffff !important; }
+    .svc-card p { font-size: 14.5px; color: #ffffff !important; opacity: 0.90; line-height: 1.7; }
+
+    /* Quick Access Strip */
+    .quick-contact-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; padding-bottom: 60px; }
+    .qc-box { display: flex; align-items: center; gap: 20px; padding: 24px; background: rgba(255,255,255,0.5); border-radius: var(--border-radius-lg); border: 1px solid rgba(255, 255, 255, 0.4); transition: all 0.3s ease; backdrop-filter: blur(12px); box-shadow: 0 8px 20px rgba(10,31,68,0.04); }
+    .qc-box:hover { background: rgba(255,255,255,0.7); border-color: rgba(255, 255, 255, 0.8); transform: translateY(-4px); box-shadow: 0 12px 24px rgba(10,31,68,0.08); }
+    .qc-box i { font-size: 32px; color: var(--sky-dark); }
+    .qc-box div h4 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--navy); opacity: 0.7; margin-bottom: 4px; font-weight: 700; }
+    .qc-box div p { font-size: 16px; font-weight: 800; color: var(--navy); }
+
+    /* About Frame */
+    .about-split { display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px; align-items: center; }
+    .about-photo { position: relative; background: rgba(255,255,255,0.4); display: flex; align-items: stretch; justify-content: stretch; padding: 0; border-radius: var(--border-radius-lg); border: 1px solid rgba(255, 255, 255, 0.5); min-height: 560px; box-shadow: 0 10px 25px rgba(10,31,68,0.04); overflow: hidden; }
+    .about-avatar { width: 100%; height: 100%; min-height: 560px; border-radius: 0; background: rgba(255, 255, 255, 0.3); border: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
+    .about-avatar i { font-size: 80px; color: rgba(10, 31, 68, 0.2); }
+    .about-name-tag { position: absolute; bottom: 20px; left: 20px; right: 20px; padding: 20px; background: rgba(10,31,68,0.95); backdrop-filter: blur(10px); border-radius: var(--border-radius-md); text-align: center; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
+    .about-name-tag h3 { color: #fff; font-size: 18px; font-weight: 600; }
+    .about-name-tag p { color: var(--gold); font-size: 13px; margin-top: 4px; }
+    
+    .about-text-side { display: flex; flex-direction: column; gap: 20px; }
+    .about-text-side p { font-size: 16px; line-height: 1.8; color: var(--navy); font-weight: 500; }
+    
+    .highlight-row { display: flex; flex-direction: column; gap: 16px; margin-top: 16px; }
+    .hl { display: flex; align-items: flex-start; gap: 20px; padding: 20px; background: rgba(255,255,255,0.4); border: 1px solid rgba(255, 255, 255, 0.5); border-radius: var(--border-radius-md); transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(10,31,68,0.03); backdrop-filter: blur(8px); }
+    .hl:hover { transform: translateX(8px); background: rgba(255,255,255,0.6); border-color: rgba(255, 255, 255, 0.8); }
+    .hl i { color: var(--gold-dark); font-size: 28px; flex-shrink: 0; }
+    .hl h4 { font-size: 16px; font-weight: 800; margin-bottom: 6px; color: var(--navy); }
+    .hl p { font-size: 14px; color: var(--navy); opacity: 0.9; font-weight: 500; }
+
+    /* Contact Module Forms & Maps */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; }
+    .cinfo { display: flex; flex-direction: column; gap: 16px; }
+    .citem { display: flex; align-items: center; gap: 20px; padding: 20px; background: rgba(255,255,255,0.4); border: 1px solid rgba(255, 255, 255, 0.5); border-radius: var(--border-radius-md); transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(10,31,68,0.03); backdrop-filter: blur(8px); text-decoration: none; }
+    a.citem:hover { transform: translateX(8px); background: rgba(255,255,255,0.7); border-color: rgba(255, 255, 255, 0.9); cursor: pointer; }
+    .citem:not(a):hover { transform: translateX(8px); background: rgba(255,255,255,0.7); border-color: rgba(255, 255, 255, 0.9); }
+    
+    .citem-icon { width: 48px; height: 48px; background: var(--navy); border-radius: var(--border-radius-md); display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 4px 10px rgba(10,31,68,0.2); }
+    .citem-icon i { color: var(--lime); font-size: 22px; }
+    .citem h4 { font-size: 12px; text-transform: uppercase; color: var(--navy); opacity: 0.7; margin-bottom: 4px; letter-spacing: 0.05em; font-weight: 700; }
+    .citem p { font-size: 16px; font-weight: 800; color: var(--navy); margin: 0; }
+    
+    /* Map Container Block */
+    .map-box { margin-top: 24px; border-radius: var(--border-radius-lg); overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: 0 10px 30px rgba(10,31,68,0.08); background: #fff; }
+    .map-box iframe { width: 100%; height: 260px; border: none; display: block; }
+    .map-btn { display: flex; align-items: center; justify-content: center; gap: 8px; background: var(--navy); color: #fff; padding: 14px; text-decoration: none; font-size: 14px; font-weight: 600; transition: background 0.3s ease; }
+    .map-btn:hover { background: var(--sky-dark); }
+
+    .cform { display: flex; flex-direction: column; gap: 20px; background: rgba(255,255,255,0.4); padding: 40px; border-radius: var(--border-radius-lg); border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: 0 10px 30px rgba(10,31,68,0.05); backdrop-filter: blur(12px); }
+    .cform input, .cform textarea { width: 100%; padding: 16px 20px; font-size: 15px; border: 1px solid rgba(10, 31, 68, 0.15); border-radius: var(--border-radius-md); background: rgba(255,255,255,0.8); color: var(--navy); font-family: var(--font-sans); outline: none; transition: all 0.3s ease; font-weight: 500; }
+    .cform textarea { min-height: 140px; resize: vertical; }
+    .cform input::placeholder, .cform textarea::placeholder { color: rgba(10, 31, 68, 0.5); font-weight: 400; }
+    .cform input:focus, .cform textarea:focus { border-color: var(--sky-dark); background: #ffffff; box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.1); }
+    
+    .send-btn { background: var(--navy); color: #fff; border: none; padding: 16px 32px; border-radius: var(--border-radius-md); font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.3s ease; margin-top: 10px; box-shadow: 0 4px 15px rgba(10,31,68,0.2); }
+    .send-btn:hover { background: var(--navy-light); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(10,31,68,0.3); }
+    .success-msg { font-size: 14px; font-weight: 600; color: #065f46; text-align: center; display: none; padding: 12px; background: #d1fae5; border-radius: var(--border-radius-md); border: 1px solid #a7f3d0; }
+
+    /* --- FOOTER --- */
+    footer { background: var(--navy); padding: 32px 4%; display: flex; align-items: center; justify-content: space-between; border-radius: var(--border-radius-lg); border: 1px solid rgba(255,255,255,0.05); margin-top: 20px; box-shadow: 0 -10px 30px rgba(10,31,68,0.1); }
+    footer p { color: rgba(255,255,255,0.7); font-size: 14px; }
+    footer span { color: var(--gold); font-weight: 600; }
+
+    /* --- ANIMATIONS --- */
+    .cursor { display: inline-block; width: 3px; height: 1.1em; background: var(--gold); margin-left: 6px; vertical-align: middle; animation: blink 0.7s steps(1) infinite; }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 1024px) {
+      .hero-wrap { grid-template-columns: 1fr; text-align: center; gap: 20px; min-height: auto; margin-top: -24px; border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg); }
+      .hero-media-side { min-height: 320px; }
+      .fader-frame { min-height: 320px; }
+      .hero-text-side { align-items: center; padding: 20px 0; }
+      .hero-text-side p { text-align: center; }
+      .hero-btns { justify-content: center; }
+      .about-split, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-photo { min-height: 300px; }
+    }
+
+    @media (max-width: 768px) {
+      .site { padding: 16px 4%; gap: 16px; }
+      nav { flex-direction: column; gap: 20px; text-align: center; padding: 20px; border-radius: var(--border-radius-md); }
+      .nav-links { gap: 16px; flex-wrap: wrap; justify-content: center; }
+      .stats-bar { grid-template-columns: 1fr; }
+      section { padding: 40px 0; }
+      .cform { padding: 24px; }
+      footer { flex-direction: column; gap: 16px; text-align: center; }
+    }
+    
+    @media (max-width: 480px) {
+      .hero-text-side h1 { font-size: 28px; }
+      .btn-gold, .btn-ghost { width: 100%; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="site">
+  <nav>
+    <div class="logo-text">Amdemichael Kifle<br><span>Authorized Accountant & Consultant</span></div>
+    <div class="nav-links">
+      <a class="active" onclick="showPage('home',this)">Home</a>
+      <a onclick="showPage('about',this)">About</a>
+      <a onclick="showPage('services',this)">Services</a>
+      <a onclick="showPage('contact',this)">Contact</a>
+    </div>
+  </nav>
+
+  <div id="home" class="page active">
+    <div class="hero-wrap">
+      <div class="hero-divider"></div>
+      <div class="hero-media-side">
+        <div class="fader-frame">
+          <div class="slide-item slide-owner" style="padding: 0;">
+            <img src="owner-photo.jpg" alt="Amdemichael Kifle" style="width: 100%; height: 100%; object-fit: cover; border-radius: 16px;">
+          </div>
+          <div class="slide-item slide-logo" style="padding: 32px;">
+            <img src="logo.png" alt="Company-Logo" style="width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 8px 24px rgba(201,168,76,0.25));">
+          </div>
+        </div>
+      </div>
+      
+      <div class="hero-text-side">
+        <div class="hero-badge">Authorized Accountant — Ethiopia</div>
+        <h1><span id="typed-text"></span><span class="cursor" id="cursor"></span></h1>
+        <p>Your partner in financial clarity. Delivering professional accounting, tax advisory, and business consulting tailored to Ethiopian law and global standards without compromise.</p>
+        <div class="hero-btns">
+          <button class="btn-gold" onclick="showPage('services',document.querySelectorAll('.nav-links a')[2])">Our Services</button>
+          <button class="btn-ghost" onclick="showPage('contact',document.querySelectorAll('.nav-links a')[3])">Get in Touch</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-bar reveal">
+      <div class="stat"><div class="stat-num" id="s1">—</div><div class="stat-label">Certified Standards</div></div>
+      <div class="stat"><div class="stat-num" id="s2">—</div><div class="stat-label">Harmonizing financials</div></div>
+      <div class="stat"><div class="stat-num" id="s3">—</div><div class="stat-label">Based in Ethiopia</div></div>
+    </div>
+
+    <section>
+      <h2>Core Practice Focus</h2>
+      <div class="gold-rule"></div>
+      <div class="svc-grid">
+        <div class="svc-card reveal"><i class="ti ti-receipt-tax"></i><h3>Tax Preparation & Law</h3><p>Accurate filling, validation, and strategic resolution maps strictly aligned with Ethiopian tax authority rules.</p></div>
+        <div class="svc-card reveal" style="transition-delay:0.1s"><i class="ti ti-chart-dots"></i><h3>Financial Consulting</h3><p>Structuring scalable management frameworks and robust deployment roadmaps for local enterprises.</p></div>
+        <div class="svc-card reveal" style="transition-delay:0.2s"><i class="ti ti-building-community"></i><h3>IPSAS & IFRS Projects</h3><p>Expert accounting configurations mapping international financial frameworks directly to local projects.</p></div>
+      </div>
+    </section>
+
+    <div class="quick-contact-strip reveal">
+      <div class="qc-box"><i class="ti ti-phone-call"></i><div><h4>Call Direct</h4><p>+251 911246976</p></div></div>
+      <div class="qc-box"><i class="ti ti-mail-opened"></i><div><h4>Email Consultation</h4><p>amdemichaelk@gmail.com</p></div></div>
+      <div class="qc-box"><i class="ti ti-map-pin-filled"></i><div><h4>Gotera Office</h4><p>Garad Mall, 1st Floor</p></div></div>
+    </div>
+  </div>
+
+  <div id="about" class="page">
+    <section>
+      <h2>About Us</h2>
+      <div class="gold-rule"></div>
+      <div class="about-split reveal">
+        <div class="about-photo">
+          <div class="about-avatar" style="padding: 0; border: none;">
+            <img src="team-photo.png" alt="Our Team" style="width: 100%; height: 100%; min-height: 560px; object-fit: cover; border-radius: var(--border-radius-lg);">
+          </div>
+          <div class="about-name-tag">
+            <h3>Amdemichael Kifle</h3>
+            <p>Authorized Accountant & Consultant</p>
+          </div>
+        </div>
+        <div class="about-text-side">
+          <p>Amdemichael Kifle Authorized Accountant and Consultant is a premier financial services firm based in Addis Ababa, Ethiopia. With profound expertise in Ethiopian financial and tax law, we provide businesses, project frameworks, and individuals with the exact structural guidance they need to thrive.</p>
+          <p>Our firm is built solidly on the pillars of integrity, accuracy, and client-first service — whether you are a startup architecting your first business plan or an established enterprise managing highly complex financial reporting matrices.</p>
+          <div class="highlight-row">
+            <div class="hl reveal"><i class="ti ti-award"></i><div><h4>Professional Excellence</h4><p>Certified and authorized under Ethiopian regulations and rigorous international standards.</p></div></div>
+            <div class="hl reveal" style="transition-delay:0.1s"><i class="ti ti-heart-handshake"></i><div><h4>Client-Centered Approach</h4><p>Every single engagement is fully tailored to the unique operational needs of your business.</p></div></div>
+            <div class="hl reveal" style="transition-delay:0.2s"><i class="ti ti-chart-line"></i><div><h4>Results Driven</h4><p>From maximized tax savings to complex financial restructuring, we deliver measurable outcomes.</p></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="services" class="page">
+    <section>
+      <h2>Our Full Suite of Services</h2>
+      <div class="gold-rule"></div>
+      <p class="section-sub reveal">Explore our comprehensive financial and consulting services designed specifically for local operations and IPSAS projects.</p>
+      <div class="svc-grid">
+        <div class="svc-card reveal"><i class="ti ti-receipt-tax"></i><h3>Tax Preparation</h3><p>Accurate filing flawlessly aligned with Ethiopian tax authority requirements.</p></div>
+        <div class="svc-card reveal" style="transition-delay:0.05s"><i class="ti ti-scale"></i><h3>Tax Law Advisory</h3><p>Expert guidance on Ethiopian tax laws, exemptions, and corporate obligations.</p></div>
+        <div class="svc-card reveal" style="transition-delay:0.1s"><i class="ti ti-chart-dots"></i><h3>Financial Consulting</h3><p>Strategic financial advice engineered to help your business grow sustainably.</p></div>
+        <div class="svc-card reveal" style="transition-delay:0.15s"><i class="ti ti-device-desktop-analytics"></i><h3>Software & Training</h3><p>Complete accounting software setup, employee training, and ongoing technical support.</p></div>
+        <div class="svc-card reveal" style="transition-delay:0.2s"><i class="ti ti-users-group"></i><h3>HR Manual Development</h3><p>Comprehensive, legally sound HR policy manuals for your scaling organization.</p></div>
+        <div class="svc-card reveal" style="transition-delay:0.25s"><i class="ti ti-file-description"></i><h3>Business Plan & Proposals</h3><p>Professional business plans and precise funding proposals that attract top investors.</p></div>
+        <div class="svc-card reveal" style="transition-delay:0.3s"><i class="ti ti-building-community"></i><h3>IPSAS</h3><p>Flawless IPSAS-aligned project architectures engineered for specialized setups.</p></div>
+        <div class="svc-card reveal" style="transition-delay:0.35s"><i class="ti ti-report-money"></i><h3>IFRS</h3><p>Full IFRS implementation roadmaps and strategic SME advisory.</p></div>
+        <div class="svc-card reveal" style="transition-delay:0.4s"><i class="ti ti-file-invoice"></i><h3>Contract Administration</h3><p>Expert consultation and strict oversight for complex contract management.</p></div>
+        <div class="svc-card reveal" style="transition-delay:0.45s"><i class="ti ti-eye-check"></i><h3>Internal Audit</h3><p>Thorough, independent review of accounts and internal financial controls.</p></div>
+      </div>
+    </section>
+  </div>
+
+  <div id="contact" class="page">
+    <section>
+      <h2>Connect With Our Office</h2>
+      <div class="gold-rule"></div>
+      <p class="section-sub reveal">We are ready to assist you. Reach out via phone or email, or visit our office location below.</p>
+      <div class="contact-grid">
+        <div class="cinfo reveal">
+          <div class="citem"><div class="citem-icon"><i class="ti ti-phone"></i></div><div><h4>Office Phone</h4><p>+251 114704414</p></div></div>
+          <div class="citem"><div class="citem-icon"><i class="ti ti-device-mobile"></i></div><div><h4>Mobile</h4><p>+251 911246976</p></div></div>
+          <div class="citem"><div class="citem-icon"><i class="ti ti-mail"></i></div><div><h4>Email</h4><p>amdemichaelk@gmail.com</p></div></div>
+          
+          <a href="https://maps.app.goo.gl/eDpaEXJLEoMG7wbWA" target="_blank" class="citem">
+            <div class="citem-icon"><i class="ti ti-map-pin"></i></div>
+            <div>
+              <h4>Location (Tap for Directions)</h4>
+              <p>Gotera Garad Mall, 1st Floor, No. 432-1-14</p>
+            </div>
+          </a>
+
+          <div class="map-box reveal" style="transition-delay:0.1s">
+            <iframe src="https://maps.google.com/maps?q=Garad%20Mall,%20Gotera,%20Addis%20Ababa&t=&z=15&ie=UTF8&iwloc=&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <a href="https://maps.app.goo.gl/eDpaEXJLEoMG7wbWA" target="_blank" class="map-btn">
+              <i class="ti ti-map-2"></i> Open in Google Maps
+            </a>
+          </div>
+
+        </div>
+        <div class="cform reveal" style="transition-delay:0.2s">
+          <input type="text" placeholder="Full Name" required />
+          <input type="email" placeholder="Email Address" required />
+          <input type="text" placeholder="Subject / Inquiry Topic" />
+          <textarea placeholder="How can our firm help your organization today?"></textarea>
+          <button class="send-btn" onclick="document.getElementById('smsg').style.display='block';setTimeout(()=>document.getElementById('smsg').style.display='none',5000)">
+            <i class="ti ti-send"></i> Transmit Message
+          </button>
+          <div class="success-msg" id="smsg">Message securely sent. Our team will be in touch shortly.</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <p>© 2026 <span>Amdemichael Kifle</span> — Authorized Accountant & Consultant.</p>
+    <p style="font-size:12px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: #ffffff;">Precision · Integrity · Results</p>
+  </footer>
+</div>
+
+<!-- MODIFIED: Simplified the startTyping() function so it doesn't split string colors anymore -->
+<script>
+var pages = { home: { typed: false, stats: false } };
+
+function showPage(id, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  
+  var pg = document.getElementById(id);
+  pg.classList.add('active');
+  
+  if (el) el.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  setTimeout(() => { revealAll(); }, 100);
+  
+  if (id === 'home' && !pages.home.typed) { pages.home.typed = true; startTyping(); }
+  if (id === 'home' && !pages.home.stats) { pages.home.stats = true; setTimeout(startCountUp, 800); }
+}
+
+var typingDone = false;
+function startTyping() {
+  if (typingDone) return;
+  typingDone = true;
+  var full = 'Trusted Financial Expertise for Ethiopian Businesses';
+  var el = document.getElementById('typed-text');
+  var cursor = document.getElementById('cursor');
+  if(!el) return;
+  
+  var i = 0;
+  var iv = setInterval(function() {
+    if (i <= full.length) {
+      el.textContent = full.slice(0, i);
+      i++;
+    } else {
+      clearInterval(iv);
+      setTimeout(() => { if (cursor) cursor.style.display = 'none'; }, 1500);
+    }
+  }, 40);
+}
+
+function startCountUp() {
+  var targets = [
+    { id: 's1', label: 'IFRS' },
+    { id: 's2', label: 'IPSAS' },
+    { id: 's3', label: 'ADDIS ABABA' }
+  ];
+  targets.forEach(function(t, idx) {
+    setTimeout(function() {
+      var el = document.getElementById(t.id);
+      if(!el) return;
+      var steps = 12; var step = 0;
+      var iv = setInterval(function() {
+        var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        if (step < steps) {
+          el.textContent = t.label.split('').map(function(c) {
+            return /[A-Z]/.test(c) ? chars[Math.floor(Math.random()*26)] : c;
+          }).join('');
+          step++;
+        } else {
+          el.textContent = t.label;
+          clearInterval(iv);
+        }
+      }, 50);
+    }, idx * 200);
+  });
+}
+
+function revealAll() {
+  document.querySelectorAll('.page.active .reveal').forEach(function(el) {
+    el.classList.add('visible');
+  });
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  setTimeout(function() {
+    startTyping();
+    setTimeout(startCountUp, 800);
+    setTimeout(revealAll, 200);
+  }, 300);
+});
+</script>
+</body>
+</html>
